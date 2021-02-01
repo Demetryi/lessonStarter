@@ -6,6 +6,9 @@ const renderCalendar = ({ appElement, currentDate }) => {
   calendarContainer.append(calendarBody); // This element must contain tr > td*monthLength
   appElement.append(calendarContainer);
   // let currentDate = new Date();
+
+
+
 };
 
 export default renderCalendar;
