@@ -1,0 +1,35 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    width: 226px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.prew-arrow, .next-arrow{
+    cursor: pointer;
+}
+.header-content{
+    margin: 0;
+    padding: 0 50px;
+}
+body{
+    margin: 35px;
+    font-family: 'Open Sans', sans-serif;
+}
+.calendar{
+border-collapse: collapse;
+margin-left: auto;
+margin-right: auto;
+width: 1054px;
+height: 200px;
+
+}
+span{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 22px;
+}
