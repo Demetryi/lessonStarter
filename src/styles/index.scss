@@ -2,10 +2,55 @@ html,
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  line-height: 1.3em;
+  line-height: 18px;
 }
 
 .calendarBar {
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 35px 0 25px;
+}
+
+.header-date {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #000;
+  margin: 0 50px;
+  width: 200px;
+}
+
+.header-nav__prev,
+.header-nav__next {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+}
+
+.header-nav__prev img,
+.header-nav__next img {
+  width: 100%;
+  padding: 5px;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+
+  th {
+    padding: 12px 5px 7px;
+    border: 1px solid rgba(126, 126, 126, 0.3);
+
+    &.dayOff {
+      background: #f0f0f0;
+    }
+
+    span:first-child {
+      display: block;
+      font-size: 12px;
+    }
+  }
 }
