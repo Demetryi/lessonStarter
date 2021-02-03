@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   font-family: "Open Sans", sans-serif;
@@ -7,5 +11,45 @@ body {
 
 .calendarBar {
   display: flex;
+  position: relative;
+  left: calc(50% - 150px);
+  max-width: 300px;
+  justify-content: space-between;
+  align-items: center;
+
+  .arrowRight,
+  .arrowLeft {
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #fff;
+    outline: none;
+  }
+}
+
+.theadBlock {
+  background-color: #e5e5e5;
+  padding: 0 5px;
+  outline: 1px solid #d7d7d7;
+}
+
+.theadBlock-friday {
+  background-color: #fff;
+  outline: 1px solid #d7d7d7;
+  padding: 0 5px;
+}
+
+.logicBlockHidden {
+  display: none;
+}
+
+.calendar-day {
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+table {
+  display: flex;
   justify-content: center;
+  border-spacing: 0;
 }
