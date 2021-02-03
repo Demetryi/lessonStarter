@@ -11,7 +11,6 @@ const renderCalendar = ({appElement, currentDate}) => {
 
   const state = {
     countWeekDay: 0,
-    // monthLenght:28,
     weekDay: ["Mo", "Tu", "We", "Th", "Fr", "St", "Su"],
     monthDay: new Array(new Date().daysInMonth()).fill(null),
     friday: false
@@ -19,31 +18,32 @@ const renderCalendar = ({appElement, currentDate}) => {
 
   calendarHead.innerHTML = (`${state.monthDay.map((el,index) => `
       ${ state.friday ?
-    `<th class='theadBlock'>
-  <span>
+    `<th class='theadBlock-friday'>
+ <span class="calendar-day">
+     ${state.weekDay[state.countWeekDay - 1]}
+  </span>
+      <br>
+   <span >
     ${index+1}
         <span class="logicBlockHidden">
           ${state.countWeekDay >= 7 ? state.countWeekDay = 1 : state.countWeekDay += 1}
           ${state.countWeekDay === 6  ? state.friday = true:state.friday = false}
   </span>
   </span>
-      <br>
-  <span>
-     ${state.weekDay[state.countWeekDay - 1]}
-  </span>
     </th>`
   :
-   ` <th class='theadBlock-friday'>
-  <span>
-    ${index+1}
-    <span class="logicBlockHidden">
+   ` <th class='theadBlock'>
+  <span class="calendar-day">
+  <span class="logicBlockHidden">
         ${state.countWeekDay >= 7 ? state.countWeekDay = 1 : state.countWeekDay += 1}
         ${state.countWeekDay === 5? state.friday = true:state.friday = false }
     </span>
+    ${state.weekDay[state.countWeekDay - 1]}
   </span>
       <br>
+      
   <span>
-     ${state.weekDay[state.countWeekDay - 1]}
+  ${index+1}
   </span>
     </th>`
   }`).join("")}`);

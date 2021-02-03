@@ -1,9 +1,9 @@
 const renderBar = ({appElement, currentDate}) => {
   const calendarToolbar = document.createElement("div");
   calendarToolbar.classList.add("calendarBar"); // Add class example
-  const arrowLeft = document.createElement('a');
+  const arrowLeft = document.createElement('button');
   arrowLeft.classList.add("arrowLeft");
-  const arrowRight = document.createElement('a');
+  const arrowRight = document.createElement('button');
   arrowRight.classList.add("arrowRight");
   const monthTitle = document.createElement('h1');
 
