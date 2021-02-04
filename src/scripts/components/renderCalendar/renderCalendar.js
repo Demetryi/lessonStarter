@@ -1,56 +1,79 @@
 const daysList = {
-	0: "Su",
-	1: "Mo",
-	2: "Tu",
-	3: "We",
-	4: "Th",
-	5: "Fr",
-	6: "St",
+  0: "Sun",
+  1: "Mon",
+  2: "Tue",
+  3: "Wed",
+  4: "Thu",
+  5: "Fri",
+  6: "Sat",
 };
 
-const renderCalendar = ({ appElement, currentDate }) => {
+const renderHead = ({ activeYear, activeMonth, calendarContainer }) => {
+  const calendarHead = document.createElement("thead");
+  calendarHead.classList.add("calendar-table__head");
 
-	const calendarContainer = document.createElement("table");
-	calendarContainer.classList.add("calendar-table");
+  const calendarRow = document.createElement("tr");
+  calendarRow.classList.add("calendar-table__row");
 
-	const calendarHead = document.createElement("thead");
-	calendarHead.classList.add("calendar-table__head");
+  calendarHead.append(calendarRow);
 
-	const calendarBody = document.createElement("tbody");
-	calendarBody.classList.add("calendar-table__body");
+  let calendarColumn = document.createElement("th");
+  calendarColumn.classList.add("calendar-table__column");
+  calendarColumn.classList.add("calendar-table__column--btn-cell");
 
-	const calendarRow = document.createElement("tr");
-	calendarRow.classList.add("calendar-table__row");
+  const addVacationButton = document.createElement("button");
+  addVacationButton.classList.add("calendar-table__add-vacation-button");
+  addVacationButton.innerHTML = "Add Vacation";
+  addVacationButton.addEventListener("click", () => {
+    console.log("asdas");
+  });
 
-	const currentMonth = currentDate.getMonth();
-	const currentYear = currentDate.getFullYear();
+  calendarColumn.append(addVacationButton);
+  calendarRow.append(calendarColumn);
 
-	calendarHead.append(calendarRow);
+  const daysInMonth = new Date(activeYear, activeMonth + 1, 0).getDate();
+  const firstDayInMonth = new Date(activeYear, activeMonth, 1).getDay();
 
-	const daysInMonth = new Date (currentYear, currentMonth + 1, 0).getDate();
-	const firstDayInMonth = new Date (currentYear, currentMonth, 1).getDay();
+  let activeDay = firstDayInMonth;
 
-	let activeDay = firstDayInMonth;
+  for (let i = 1; i <= daysInMonth; i++) {
+    calendarColumn = document.createElement("th");
+    calendarColumn.classList.add("calendar-table__column");
 
-	for(let i = 0; i < daysInMonth; i++) {
+    if (activeDay % 7 == 0 || activeDay % 7 == 6) {
+      calendarColumn.classList.add("weekend");
+    }
 
-		const calendarColumn = document.createElement("th");
-		calendarColumn.classList.add("calendar-table__column");
+    calendarColumn.innerHTML = `<span class="calendar-table__week-day">${
+      daysList[activeDay % 7]
+    }</span><span class="calendar-table__month-day">${i}</span>`;
+    calendarRow.append(calendarColumn);
+    activeDay++;
+  }
 
-		if(activeDay % 7 == 0 || activeDay % 7 == 6) {
-			calendarColumn.classList.add("weekend");
-		}
+  calendarColumn = document.createElement("th");
+  calendarColumn.classList.add("calendar-table__column");
+  calendarColumn.classList.add("calendar-table__column--sum-cell");
+  calendarColumn.innerHTML = "Sum";
+  calendarRow.append(calendarColumn);
 
-		calendarColumn.innerHTML = `<span class="calendar-table__week-day">${daysList.[activeDay % 7]}</span><span class="calendar-table__month-day">${i + 1}</span>`;
-		calendarRow.append(calendarColumn);
-		activeDay++;
+  calendarContainer.append(calendarHead);
+};
 
-	}
+const renderCalendar = ({ appElement, activeDate }) => {
+  const calendarContainer = document.createElement("table");
+  calendarContainer.classList.add("calendar-table");
 
-	calendarContainer.prepend(calendarHead); // This element contain tr > th*monthLength > <span>DayName</span> + <span>DayNum</span>
-	calendarContainer.append(calendarBody); // This element contain tr > td*monthLength
-	appElement.append(calendarContainer);
+  const activeMonth = activeDate.getMonth();
+  const activeYear = activeDate.getFullYear();
 
+  renderHead({ activeMonth, activeYear, calendarContainer });
+
+  const calendarBody = document.createElement("tbody");
+  calendarBody.classList.add("calendar-table__body");
+
+  calendarContainer.append(calendarBody);
+  appElement.append(calendarContainer);
 };
 
 export default renderCalendar;
