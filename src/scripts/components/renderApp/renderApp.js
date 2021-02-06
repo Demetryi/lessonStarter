@@ -1,4 +1,6 @@
 import renderBar from "../renderBar";
+import Navigation from "../Navigation";
+
 import renderTeams from "../renderTeams";
 
 const renderApp = () => {
@@ -44,5 +46,8 @@ const renderApp = () => {
     return activeDate;
   }
 };
+
+let navigation = new Navigation("#appRoot", new Date(), null);
+navigation.render();
 
 export default renderApp;
