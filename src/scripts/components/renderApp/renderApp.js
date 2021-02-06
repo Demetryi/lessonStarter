@@ -35,8 +35,7 @@ const renderApp = () => {
     }
     let calendarHeader = document.querySelector(".calendar-bar__header");
     calendarHeader.innerHTML = "";
-    let [monthName, yearValue] = activeDate.toLocaleDateString("en-US", { month: "long", year: "numeric" }).split(" ");
-    calendarHeader.innerHTML = monthName + " " + yearValue;
+    calendarHeader.innerHTML = activeDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
     let calendarTable = document.querySelector(".calendar-table");
     appElement.removeChild(calendarTable);
     renderTeams({ appElement, activeDate });
