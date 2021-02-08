@@ -1,8 +1,8 @@
 import Component from "../Component";
 
-export class Navigation extends Component {
-  constructor(parentSelector, date, tableComponent) {
-    super(parentSelector);
+export default class Navigation extends Component {
+  constructor({ parentSelector, date, tableComponent, className }) {
+    super({ parentSelector, className });
     this.tableComponent = tableComponent;
     this.date = date;
     this.component.innerHTML = `<button class="calendar-bar__control-button
@@ -21,20 +21,20 @@ export class Navigation extends Component {
     this.component
       .querySelector(".calendar-bar__control-button--next")
       .addEventListener("click", this.nextMonth.bind(this));
-
-    this.component.classList.add("calendar-bar");
   }
 
   prevMonth() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1);
     this.updateMonth(this.date);
-    this.tableComponent.updateTableHead(this.date);
+    this.tableComponent.thead.addContent("");
+    this.tableComponent.thead.renderHead(this.date);
   }
 
   nextMonth() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1);
     this.updateMonth(this.date);
-    this.tableComponent.updateTableHead(this.date);
+    this.tableComponent.thead.addContent("");
+    this.tableComponent.thead.renderHead(this.date);
   }
 
   updateMonth(newDate) {

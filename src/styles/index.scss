@@ -159,16 +159,18 @@ body {
 .calendar-table {
   border-collapse: collapse;
   padding: 0 15px;
-  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 
   &__head-column {
     border: 1px solid #d7d7d7;
     padding: 10px 3px;
+    height: auto;
 
     &--btn-cell {
       width: auto;
       border: none;
-      padding: 0;
+      padding: 0 15px 0 0;
       text-align: start;
       vertical-align: top;
     }
