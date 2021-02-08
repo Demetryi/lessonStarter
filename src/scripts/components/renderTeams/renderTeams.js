@@ -1,6 +1,4 @@
-import renderCalendar from "../renderCalendar";
-
-const renderTeams = ({ appElement, activeDate }) => {
+const renderTeams = () => {
   const departmentTeams = {
     teams: [
       {
@@ -112,13 +110,9 @@ const renderTeams = ({ appElement, activeDate }) => {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-  })
-    .then((response) => response.json())
-    .then((json) => genereateTeamList(json));
+  }).then((response) => response.json());
 
-  function genereateTeamList(departmentTeams) {
-    renderCalendar({ appElement, activeDate, departmentTeams });
-  }
+  return departmentTeams;
 };
 
 export default renderTeams;
