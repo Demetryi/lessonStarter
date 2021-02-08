@@ -1,9 +1,10 @@
 import Component from "../Component";
 
 class Table extends Component {
-  constructor({ parentSelector, currentDate, className }) {
+  constructor({ parentSelector, currentDate, departmentTeams, className }) {
     super({ parentSelector, tagName: "table", className });
     this.currentDate = currentDate;
+    this.departmentTeams = departmentTeams;
 
     this.thead = new CalendarHead({
       parentSelector: this.component,
@@ -12,6 +13,15 @@ class Table extends Component {
       className: "calendar-table__head",
     });
     this.thead.render();
+
+    this.tbody = new CalendarBody({
+      parentSelector: this.component,
+      tagName: "thead",
+      currentDate: currentDate,
+      departmentTeams: this.departmentTeams,
+      className: "calendar-table__body",
+    });
+    this.tbody.render();
   }
   render() {
     super.render();
@@ -46,9 +56,7 @@ class CalendarHead extends Component {
     this.addVacationButton.render();
 
     const firstDayInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-    console.log;
     const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-    console.log(daysInMonth);
 
     let activeDay = firstDayInMonth;
 
@@ -83,6 +91,86 @@ class CalendarHead extends Component {
     });
     this.sumCell.addContent("Sum");
     this.sumCell.render();
+  }
+}
+
+class CalendarBody extends Component {
+  constructor({ parentSelector, currentDate, departmentTeams, className }) {
+    super({ parentSelector, tagName: "tbody", className });
+    this.renderBody(currentDate, departmentTeams);
+  }
+
+  renderBody(currentDate, departmentTeams) {
+    for (let i = 0; i < departmentTeams.teams.length; i++) {
+      const numberOfMembers = departmentTeams.teams[i].members.length;
+      let teamNum = (i + 1) % 4;
+
+      if (teamNum === 0) {
+        teamNum = 4;
+      }
+
+      for (let j = 0; j < numberOfMembers + 1; j++) {
+        const firstDayInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+        const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+        let activeDay = firstDayInMonth;
+
+        this.bodyRow = new CalendarRow({
+          parentSelector: this.component,
+          className: "calendar-table__body-row",
+        });
+
+        if (j === 0) {
+          this.bodyRow.addClass("team-first-row");
+        }
+
+        if (j === numberOfMembers) {
+          this.bodyRow.addClass("team-last-row");
+        }
+
+        this.bodyRow.addClass(`teamColor${teamNum}`);
+
+        this.bodyRow.render();
+
+        this.bodyCell = new CalendarСell({
+          parentSelector: this.bodyRow.returnComponent(),
+          tagName: "td",
+          className: ["calendar-table__body-first-column", "first-column"],
+        });
+
+        if (j === 0) {
+          this.bodyCell.addContent(`<div class="team-info-cell"><span class="team-info-cell__team-name">${
+            departmentTeams.teams[i].name
+          }</span>
+        <div class="team-info-cell__wrapper">
+										<div class="team-info-cell__number-people">${departmentTeams.teams[i].members.length}</div>
+										<div class="team-info-cell__percent">${departmentTeams.teams[i].percentageOfAbsent[currentDate.getMonth()]}%</div>
+                    <div class="team-info-cell__collapse"></div></div></div>`);
+        } else {
+          this.bodyCell.addContent(departmentTeams.teams[i].members[j - 1].name);
+        }
+
+        this.bodyCell.render();
+
+        for (let k = 1; k <= daysInMonth + 1; k++) {
+          this.bodyCell = new CalendarСell({
+            parentSelector: this.bodyRow.returnComponent(),
+            tagName: "td",
+            className: ["calendar-table__body-column"],
+          });
+
+          if (k === daysInMonth + 1) {
+            this.bodyCell.addClass("sum-cell");
+          }
+
+          if (activeDay % 7 == 0 || activeDay % 7 == 6) {
+            this.bodyCell.addClass("weekend");
+          }
+
+          this.bodyCell.render();
+          activeDay++;
+        }
+      }
+    }
   }
 }
 

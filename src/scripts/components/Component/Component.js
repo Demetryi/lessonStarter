@@ -20,7 +20,11 @@ export default class Component {
   }
 
   addClass(className) {
-    this.component.classList.add(...className);
+    if (Array.isArray(className)) {
+      this.component.classList.add(...className);
+    } else {
+      this.component.classList.add(className);
+    }
   }
 
   addContent(content) {

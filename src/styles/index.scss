@@ -71,6 +71,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 220px;
 
   &__wrapper {
     display: flex;
@@ -80,6 +81,7 @@ body {
   &__team-name {
     font-size: 12px;
     font-weight: 600;
+    margin-right: 10px;
   }
 
   &__number-people {

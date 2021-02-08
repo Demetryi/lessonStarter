@@ -28,6 +28,8 @@ export default class Navigation extends Component {
     this.updateMonth(this.date);
     this.tableComponent.thead.addContent("");
     this.tableComponent.thead.renderHead(this.date);
+    this.tableComponent.tbody.addContent("");
+    this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
   nextMonth() {
@@ -35,6 +37,8 @@ export default class Navigation extends Component {
     this.updateMonth(this.date);
     this.tableComponent.thead.addContent("");
     this.tableComponent.thead.renderHead(this.date);
+    this.tableComponent.tbody.addContent("");
+    this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
   updateMonth(newDate) {
