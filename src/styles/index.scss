@@ -1,3 +1,8 @@
+$purpleTeamColor: #9b99ff;
+$blueTeamColor: #7aafff;
+$pinkTeamColor: #f99;
+$orangeTeamColor: #ffa768;
+
 html,
 body {
   font-family: "Open Sans", sans-serif;
@@ -5,46 +10,349 @@ body {
   line-height: 1.3em;
 }
 
+body {
+  min-width: 1200px;
+}
+
 .calendar-bar {
   display: flex;
   justify-content: center;
-  margin: 25px 0px 15px 0px;
+  align-items: center;
+  padding: 35px 0 25px;
 
   &__header {
     font-weight: 600;
     font-size: 14px;
     line-height: 21px;
+    margin: 0 50px;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  &__control-button {
+    cursor: pointer;
+    display: block;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    background-size: 100%;
+    background-position: center;
+    border: none;
+    background-color: #fff;
+    background-repeat: no-repeat;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &--prev {
+      background-image: url(../images/left-arrow.svg);
+    }
+
+    &--next {
+      background-image: url(../images/right-arrow.svg);
+    }
+  }
+}
+
+.weekend {
+  background-color: #f0f0f0;
+}
+
+.sum-cell {
+  background-color: #f3f3f3;
+}
+
+.team-info-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 220px;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__team-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  &__number-people {
+    position: relative;
+    color: #949494;
+    margin-right: 15px;
+    padding-left: 15px;
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-60%);
+      width: 12px;
+      height: 12px;
+      background-image: url(../images/people.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__percent {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 0 5px;
+    border-radius: 2px;
+    color: #fff;
+    margin-right: 20px;
+  }
+
+  &__collapse {
+    cursor: pointer;
+    width: 10px;
+    height: 5px;
+    padding: 2px;
+    background-image: url(../images/spoiler-arrow.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+.team-last-row {
+  td {
+    position: relative;
+    border-bottom: 30px solid white;
+
+    &::before {
+      position: absolute;
+      content: "";
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #d7d7d7;
+    }
+  }
+}
+
+.team-first-row:not(:first-of-type) {
+  td {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #d7d7d7;
+    }
   }
 }
 
 .calendar-table {
   border-collapse: collapse;
-  display: flex;
-  justify-content: center;
+  padding: 0 15px;
+  margin: 0 auto;
+  box-sizing: border-box;
 
-  &__column {
+  &__head-column {
     border: 1px solid #d7d7d7;
-    // margin: 0px 0px 0px 0px;
-    width: 34px;
-    height: 64px;
+    padding: 10px 3px;
+    height: auto;
+
+    &--btn-cell {
+      width: auto;
+      border: none;
+      padding: 0 15px 0 0;
+      text-align: start;
+      vertical-align: top;
+    }
+
+    &--sum-cell {
+      vertical-align: top;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      background-color: #f3f3f3;
+    }
   }
 
-  &__week-day {
+  &__add-vacation-button {
+    cursor: pointer;
+    position: relative;
+    background-color: #48ba46;
+    border: none;
+    padding: 10px 15px 10px 40px;
+    border-radius: 7px;
+    min-width: 120px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+
+    &::before {
+      display: block;
+      position: absolute;
+      content: "";
+      left: 15px;
+      top: 20px;
+      width: 13px;
+      height: 1px;
+      background-color: rgb(255, 255, 255);
+    }
+
+    &::after {
+      display: block;
+      position: absolute;
+      content: "";
+      left: 21px;
+      top: 14px;
+      width: 1px;
+      height: 13px;
+      background-color: rgb(255, 255, 255);
+    }
+
+    &:hover {
+      background-color: #2e992d;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__head-week-day {
     font-size: 12px;
     font-weight: 400;
-    line-height: 18px;
     display: block;
-    margin: 5px 0px 5px 0px;
+    width: 26px;
+    margin: 0 auto 5px;
+    text-align: center;
   }
 
   &__month-day {
     font-size: 14px;
     font-weight: 600;
-    line-height: 21px;
   }
 
-}
+  &__body-row {
+    border: 1px solid #d7d7d7;
 
-.weekend {
-  background-color: #f0f0f0;
+    &.teamColor1 {
+      border-left: 3px solid $purpleTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $purpleTeamColor;
+          }
+        }
+      }
+    }
+
+    &.teamColor2 {
+      border-left: 3px solid $blueTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $blueTeamColor;
+          }
+        }
+      }
+    }
+
+    &.teamColor3 {
+      border-left: 3px solid $pinkTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $pinkTeamColor;
+          }
+        }
+      }
+    }
+
+    &.teamColor4 {
+      border-left: 3px solid $orangeTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $orangeTeamColor;
+          }
+        }
+      }
+    }
+  }
+
+  &__body-column {
+    border: 1px solid #d7d7d7;
+  }
+
+  &__body-first-column {
+    min-width: 190px;
+    text-align: start;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 7px 15px;
+  }
 }
