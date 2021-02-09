@@ -184,6 +184,10 @@ body {
       line-height: 18px;
       background-color: #f3f3f3;
     }
+
+    &.hide {
+      display: none;
+    }
   }
 
   &__add-vacation-button {
