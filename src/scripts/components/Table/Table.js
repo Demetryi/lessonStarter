@@ -59,7 +59,7 @@ class CalendarHead extends Component {
 
     const MAX_MONTH_DAY = 31;
 
-    for (let i = 1; i <= MAX_MONTH_DAY; i++) {
+    for (let dayCounter = 1; dayCounter <= MAX_MONTH_DAY; dayCounter++) {
       this.calendarHeadCell = new CalendarHeadСell({
         parentSelector: this.headRow,
         tagName: "th",
@@ -109,19 +109,19 @@ class CalendarHead extends Component {
     const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
     let activeDay = firstDayInMonth;
 
-    for (let i = 0; i < daysInMonth; i++) {
-      this.dateCells[i].removeClass("hide");
+    for (let dayCounter = 0; dayCounter < daysInMonth; dayCounter++) {
+      this.dateCells[dayCounter].removeClass("hide");
 
       if (activeDay % 7 == 0 || activeDay % 7 == 6) {
-        this.dateCells[i].addClass("weekend");
+        this.dateCells[dayCounter].addClass("weekend");
       }
 
-      this.dateCells[i].weekDay.addContent(
-        `${new Date(currentDate.getFullYear(), currentDate.getMonth(), i).toLocaleDateString("en-US", {
+      this.dateCells[dayCounter].weekDay.addContent(
+        `${new Date(currentDate.getFullYear(), currentDate.getMonth(), dayCounter).toLocaleDateString("en-US", {
           weekday: "short",
         })}`,
       );
-      this.dateCells[i].monthDay.addContent(`${i + 1}`);
+      this.dateCells[dayCounter].monthDay.addContent(`${dayCounter + 1}`);
 
       activeDay++;
     }
