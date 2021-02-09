@@ -1,4 +1,4 @@
-const renderCalendar = ({ appElement, currentDate }: { appElement: Element; currentDate: Date }) => {
+const renderCalendar = ({ appElement, currentDate }: { appElement: Element; currentDate: Date }): void => {
   const calendarContainer = document.createElement("table");
   const calendarHead = document.createElement("thead");
   const calendarBody = document.createElement("tbody");
