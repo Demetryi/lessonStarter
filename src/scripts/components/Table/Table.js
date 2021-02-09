@@ -101,75 +101,91 @@ class CalendarBody extends Component {
   }
 
   renderBody(currentDate, departmentTeams) {
-    for (let i = 0; i < departmentTeams.teams.length; i++) {
-      const numberOfMembers = departmentTeams.teams[i].members.length;
-      let teamNum = (i + 1) % 4;
+    for (let comandCounter = 0; comandCounter < departmentTeams.teams.length; comandCounter++) {
+      this.renderTeamNum(comandCounter, departmentTeams);
 
-      if (teamNum === 0) {
-        teamNum = 4;
-      }
-
-      for (let j = 0; j < numberOfMembers + 1; j++) {
+      for (let memberCounter = 0; memberCounter < this.numberOfMembers + 1; memberCounter++) {
         const firstDayInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
         const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
         let activeDay = firstDayInMonth;
 
-        this.bodyRow = new CalendarRow({
-          parentSelector: this.component,
-          className: "calendar-table__body-row",
-        });
+        this.renderFirstColumn(comandCounter, memberCounter, departmentTeams, currentDate);
 
-        if (j === 0) {
-          this.bodyRow.addClass("team-first-row");
-        }
-
-        if (j === numberOfMembers) {
-          this.bodyRow.addClass("team-last-row");
-        }
-
-        this.bodyRow.addClass(`teamColor${teamNum}`);
-
-        this.bodyRow.render();
-
-        this.bodyCell = new CalendarСell({
-          parentSelector: this.bodyRow.returnComponent(),
-          tagName: "td",
-          className: ["calendar-table__body-first-column", "first-column"],
-        });
-
-        if (j === 0) {
-          this.bodyCell.addContent(`<div class="team-info-cell"><span class="team-info-cell__team-name">${
-            departmentTeams.teams[i].name
-          }</span>
-        <div class="team-info-cell__wrapper">
-										<div class="team-info-cell__number-people">${departmentTeams.teams[i].members.length}</div>
-										<div class="team-info-cell__percent">${departmentTeams.teams[i].percentageOfAbsent[currentDate.getMonth()]}%</div>
-                    <div class="team-info-cell__collapse"></div></div></div>`);
-        } else {
-          this.bodyCell.addContent(departmentTeams.teams[i].members[j - 1].name);
-        }
-
-        this.bodyCell.render();
-
-        for (let k = 1; k <= daysInMonth + 1; k++) {
-          this.bodyCell = new CalendarСell({
-            parentSelector: this.bodyRow.returnComponent(),
-            tagName: "td",
-            className: ["calendar-table__body-column"],
-          });
-
-          if (k === daysInMonth + 1) {
-            this.bodyCell.addClass("sum-cell");
-          }
-
-          if (activeDay % 7 == 0 || activeDay % 7 == 6) {
-            this.bodyCell.addClass("weekend");
-          }
-
-          this.bodyCell.render();
-          activeDay++;
-        }
+        this.renderRestColumns(daysInMonth, activeDay);
       }
+    }
+  }
+
+  renderTeamNum(comandCounter, departmentTeams) {
+    this.numberOfMembers = departmentTeams.teams[comandCounter].members.length;
+    this.teamNum = (comandCounter + 1) % 4;
+
+    if (this.teamNum === 0) {
+      this.teamNum = 4;
+    }
+    return this.numberOfMembers;
+    return this.teamNum;
+  }
+
+  renderFirstColumn(comandCounter, memberCounter, departmentTeams, currentDate) {
+    this.bodyRow = new CalendarRow({
+      parentSelector: this.component,
+      className: "calendar-table__body-row",
+    });
+
+    if (memberCounter === 0) {
+      this.bodyRow.addClass("team-first-row");
+    }
+
+    if (memberCounter === this.numberOfMembers) {
+      this.bodyRow.addClass("team-last-row");
+    }
+
+    this.bodyRow.addClass(`teamColor${this.teamNum}`);
+
+    this.bodyRow.render();
+
+    this.bodyCell = new CalendarСell({
+      parentSelector: this.bodyRow.returnComponent(),
+      tagName: "td",
+      className: ["calendar-table__body-first-column", "first-column"],
+    });
+
+    if (memberCounter === 0) {
+      this.bodyCell.addContent(`<div class="team-info-cell"><span class="team-info-cell__team-name">${
+        departmentTeams.teams[comandCounter].name
+      }</span>
+        <div class="team-info-cell__wrapper">
+										<div class="team-info-cell__number-people">${departmentTeams.teams[comandCounter].members.length}</div>
+										<div class="team-info-cell__percent">${
+                      departmentTeams.teams[comandCounter].percentageOfAbsent[currentDate.getMonth()]
+                    }%</div>
+                    <div class="team-info-cell__collapse"></div></div></div>`);
+    } else {
+      this.bodyCell.addContent(departmentTeams.teams[comandCounter].members[memberCounter - 1].name);
+    }
+
+    this.bodyCell.render();
+  }
+
+  renderRestColumns(daysInMonth, activeDay) {
+    for (let k = 1; k <= daysInMonth + 1; k++) {
+      this.bodyCell = new CalendarСell({
+        parentSelector: this.bodyRow.returnComponent(),
+        tagName: "td",
+        className: ["calendar-table__body-column"],
+      });
+
+      if (k === daysInMonth + 1) {
+        this.bodyCell.addClass("sum-cell");
+      }
+
+      if (activeDay % 7 == 0 || activeDay % 7 == 6) {
+        this.bodyCell.addClass("weekend");
+      }
+
+      this.bodyCell.render();
+      activeDay++;
     }
   }
 }
