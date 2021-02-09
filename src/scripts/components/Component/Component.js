@@ -27,6 +27,14 @@ export default class Component {
     }
   }
 
+  removeClass(className) {
+    if (Array.isArray(className)) {
+      this.component.classList.remove(...className);
+    } else {
+      this.component.classList.remove(className);
+    }
+  }
+
   addContent(content) {
     this.component.innerHTML = content;
   }

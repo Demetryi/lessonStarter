@@ -5,10 +5,9 @@ import Calendar from "../Calendar";
 const renderApp = () => {
   const departmentTeams = renderTeams();
 
-  let appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" });
-  appElement.render();
+  let appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" }).render();
   let calendar = new Calendar({
-    parentSelector: appElement.returnComponent(),
+    parentSelector: appElement,
     departmentTeams: departmentTeams,
     className: "calendar",
   }).render();
