@@ -27,7 +27,6 @@ export default class Navigation extends Component {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1);
     this.updateMonth(this.date);
     this.tableComponent.thead.renderHead(this.date);
-    // this.tableComponent.tbody.addContent("");
     this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
@@ -35,7 +34,6 @@ export default class Navigation extends Component {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1);
     this.updateMonth(this.date);
     this.tableComponent.thead.renderHead(this.date);
-    // this.tableComponent.tbody.addContent("");
     this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
