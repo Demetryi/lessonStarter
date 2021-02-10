@@ -12,11 +12,11 @@ const renderApp = () => {
     className: "calendar",
   }).render();
 
-  let addBtn = appElement.returnComponent().querySelector(".calendar-table__add-vacation-button");
-  let cancelBtn = appElement.returnComponent().querySelector(".modal__btn-cancel");
-  let sendBtn = appElement.returnComponent().querySelector(".modal__btn-send");
-  let modal = appElement.returnComponent().querySelector(".modal");
-  let modalOoverlay = appElement.returnComponent().querySelector(".modal__overlay");
+  let addBtn = appElement.querySelector(".calendar-table__add-vacation-button");
+  let cancelBtn = appElement.querySelector(".modal__btn-cancel");
+  let sendBtn = appElement.querySelector(".modal__btn-send");
+  let modal = appElement.querySelector(".modal");
+  let modalOoverlay = appElement.querySelector(".modal__overlay");
 
   addBtn.addEventListener("click", function (e) {
     modal.classList.toggle("visible");
