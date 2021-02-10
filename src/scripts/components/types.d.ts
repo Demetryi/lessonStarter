@@ -16,10 +16,21 @@ export interface INavigationProperties extends IComponentProperties {
   tableComponent: Table;
 }
 
+interface IVacancy {
+  startDate: string;
+  endDate: string;
+  type: string;
+}
+
+interface IMember {
+  name: string;
+  vacations: IVacancy[];
+}
+
 export interface ITeam {
   name: string;
   percentageOfAbsent: number[];
-  members: { name: string; vacations: { startDate: string; endDate: string; type: string }[] }[];
+  members: IMember[];
 }
 
 export type TTeamsData = ITeam[] | null;

@@ -15,7 +15,7 @@ export class Component {
     return this.component;
   }
 
-  addClassNames(classNames: string | string[] | undefined): void {
+  addClassNames(classNames?: string | string[]): void {
     if (classNames) {
       if (typeof classNames === "string") {
         this.component.classList.add(classNames);

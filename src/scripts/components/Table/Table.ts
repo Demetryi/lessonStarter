@@ -11,11 +11,12 @@ export class Table extends Component {
     this.date = date;
     this.teams = null;
     this.preData = TEAMS;
-    this.getServerData();
+    this.getServerData().then(() => this.update());
+    this.generateTable();
   }
 
-  getServerData(): void {
-    fetch("https://jsonplaceholder.typicode.com/posts/1", {
+  getServerData(): Promise<ITeam[]> {
+    return fetch("https://jsonplaceholder.typicode.com/posts/1", {
       method: "PUT",
       body: JSON.stringify(this.preData),
       headers: {
@@ -24,11 +25,35 @@ export class Table extends Component {
     })
       .then((response) => response.json())
       .then((json: { teams: ITeam[] }) => {
-        this.teams = json.teams;
-        // this.update();
+        this.setServerData(json.teams);
+        return json.teams;
       });
   }
-
+  update(): void {}
+  generateTable(): void {
+    this.generateTableHead();
+  }
+  generateTableHead(): void {
+    const calendarHead = new Component({ parent: this.component, tagName: "thead" });
+    calendarHead.render();
+    /*
+    let outputCalendarHTML = `<td class="addVacationCell outputItem "><button class="addVacationBtn"><span>+</span>Add Vacation</button></td>`;
+    const outputCalendar = this.component.querySelector(".outputCalendar");
+    const daysInCurrentMonth = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate();
+    for (let index = 1; index <= daysInCurrentMonth; index++) {
+      const chosenDate = new Date(this.date.getFullYear(), this.date.getMonth(), index);
+      const dateString = chosenDate.toLocaleDateString("en-US", { day: "numeric", weekday: "short" });
+      const isWeekend = dayName === "Sat" || dayName === "Sun";
+      outputCalendarHTML += `<td class="outputItem ${isWeekend ? "weekend" : ""}">
+                <span class="outputDay">${dayName.slice(0, -1)}</span> 
+                <span class="outputDate">${date}</span>
+                </td>`;
+    }
+    outputCalendarHTML += `<td class="sumCell outputItem weekend">Sum</td>`;
+    outputCalendar.innerHTML = outputCalendarHTML;
+    const addVacationButton = this.component.querySelector(".addVacationBtn");
+    addVacationButton.addEventListener("click", this.popupWindowContext.show.bind(this.popupWindowContext)); */
+  }
   setServerData(serverData: ITeam[]): void {
     this.teams = serverData;
   }

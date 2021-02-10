@@ -16,19 +16,22 @@ export class Navigation extends Component {
     this.previousButton = previousButton.render();
     this.monthLabel = monthLabel.render();
     this.nextButton = nextButton.render();
-    this.previousButton.addEventListener("click", () =>
-      this.changeDate.bind(this)(new Date(this.date.getFullYear(), this.date.getMonth(), 0)),
-    );
-    this.nextButton.addEventListener("click", () =>
-      this.changeDate.bind(this)(new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1)),
-    );
-    this.monthLabel = this.component.querySelector(".chosenMonth") as Element;
+    this.previousButton.addEventListener("click", () => this.setPreviousMonth());
+    this.nextButton.addEventListener("click", () => this.setNextMonth());
   }
 
   changeDate(newDate: Date): void {
     this.date = newDate;
     this.updateMonth(this.date);
     this.tableComponent.updateTable(this.date);
+  }
+
+  setPreviousMonth(): void {
+    this.changeDate(new Date(this.date.getFullYear(), this.date.getMonth(), 0));
+  }
+
+  setNextMonth(): void {
+    this.changeDate(new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1));
   }
 
   updateMonth(newDate: Date): void {
