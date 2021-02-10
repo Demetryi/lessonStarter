@@ -122,6 +122,10 @@ body {
     background-image: url(../images/spoiler-arrow.svg);
     background-size: 100%;
     background-repeat: no-repeat;
+
+    &.active {
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -345,6 +349,10 @@ body {
           }
         }
       }
+    }
+
+    &.hide {
+      display: none;
     }
   }
 

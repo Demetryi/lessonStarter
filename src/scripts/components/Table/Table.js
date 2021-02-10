@@ -133,7 +133,6 @@ class CalendarBody extends Component {
     this.arrayCells = [];
 
     this.renderEmptyBody(departmentTeams);
-    // this.hideCells();
     this.renderBody(currentDate, departmentTeams);
   }
 
@@ -165,6 +164,8 @@ class CalendarBody extends Component {
           this.teamCell.render();
           this.bodyRow.addTeamInfoCell(this.teamCell);
         } else {
+          this.bodyRow.addClass("team" + (comandCounter + 1));
+
           this.firstBodyCell = new CalendarСell({
             parentSelector: this.bodyRow.returnComponent(),
             tagName: "td",
@@ -183,8 +184,6 @@ class CalendarBody extends Component {
       }
       this.arrayTeams.push(this.arrayTeamRow);
     }
-
-    console.log(this.arrayTeams);
 
     for (let teamCounter = 0; teamCounter < this.arrayTeams.length; teamCounter++) {
       for (let teamRowCounter = 0; teamRowCounter < this.arrayTeams[teamCounter].length; teamRowCounter++) {
