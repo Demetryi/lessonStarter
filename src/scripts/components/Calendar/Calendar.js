@@ -1,5 +1,6 @@
 import Component from "../Component";
 import Navigation from "../Navigation";
+import VacationRequest from "../VacationRequest";
 import { Table } from "../Table";
 
 export default class Calendar extends Component {
@@ -20,6 +21,12 @@ export default class Calendar extends Component {
       tableComponent: this.table,
       className: "calendar-bar",
     }); // отдельный класс
+    this.vacation = new VacationRequest({
+      parentSelector: parentSelector,
+      date: this.currentDate,
+      tableComponent: this.table,
+      className: "modal",
+    }); // отдельный класс
   }
 
   addClass(elementClass) {
@@ -30,5 +37,6 @@ export default class Calendar extends Component {
     super.render();
     this.nav.render();
     this.table.render();
+    this.vacation.render();
   }
 }
