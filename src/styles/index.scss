@@ -350,6 +350,10 @@ body {
 
   &__body-column {
     border: 1px solid #d7d7d7;
+
+    &.hide {
+      display: none;
+    }
   }
 
   &__body-first-column {
