@@ -5,14 +5,24 @@ import Calendar from "../Calendar";
 const renderApp = () => {
   const departmentTeams = renderTeams();
 
-  let appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" });
-  appElement.render();
+  let appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" }).render();
   let calendar = new Calendar({
-    parentSelector: appElement.returnComponent(),
+    parentSelector: appElement,
     departmentTeams: departmentTeams,
     className: "calendar",
   }).render();
 
+  let spoilerButtons = document.querySelectorAll(".team-info-cell__collapse");
+
+  for (let buttonCounter = 0; buttonCounter < spoilerButtons.length; buttonCounter++) {
+    spoilerButtons[buttonCounter].addEventListener("click", () => {
+      let userRows = document.querySelectorAll(`.team${buttonCounter + 1}`);
+      spoilerButtons[buttonCounter].classList.toggle("active");
+      for (let userRowCounter = 0; userRowCounter < userRows.length; userRowCounter++) {
+        userRows[userRowCounter].classList.toggle("hide");
+      }
+    });
+  }
   let addBtn = appElement.querySelector(".calendar-table__add-vacation-button");
   let cancelBtn = appElement.querySelector(".modal__btn-cancel");
   let sendBtn = appElement.querySelector(".modal__btn-send");

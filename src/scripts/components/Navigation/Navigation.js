@@ -26,18 +26,14 @@ export default class Navigation extends Component {
   prevMonth() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1);
     this.updateMonth(this.date);
-    this.tableComponent.thead.addContent("");
     this.tableComponent.thead.renderHead(this.date);
-    this.tableComponent.tbody.addContent("");
     this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
   nextMonth() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1);
     this.updateMonth(this.date);
-    this.tableComponent.thead.addContent("");
     this.tableComponent.thead.renderHead(this.date);
-    this.tableComponent.tbody.addContent("");
     this.tableComponent.tbody.renderBody(this.date, this.tableComponent.departmentTeams);
   }
 
