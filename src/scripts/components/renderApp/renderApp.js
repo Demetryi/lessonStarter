@@ -5,41 +5,31 @@ import Calendar from "../Calendar";
 const renderApp = () => {
   const departmentTeams = renderTeams();
 
-  let appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" }).render();
-  let calendar = new Calendar({
+  const appElement = new Component({ parentSelector: "body", tagName: "main", className: "appRoot" }).render();
+  const calendar = new Calendar({
     parentSelector: appElement,
-    departmentTeams: departmentTeams,
+    departmentTeams,
     className: "calendar",
-  }).render();
+  });
+  calendar.render();
 
-  let spoilerButtons = document.querySelectorAll(".team-info-cell__collapse");
+  const addButton = appElement.querySelector(".calendar-table__add-vacation-button");
+  const cancelButton = appElement.querySelector(".modal__btn-cancel");
+  const sendButton = appElement.querySelector(".modal__btn-send");
+  const modal = appElement.querySelector(".modal");
+  const modalOoverlay = appElement.querySelector(".modal__overlay");
 
-  for (let buttonCounter = 0; buttonCounter < spoilerButtons.length; buttonCounter++) {
-    spoilerButtons[buttonCounter].addEventListener("click", () => {
-      let userRows = document.querySelectorAll(`.team${buttonCounter + 1}`);
-      spoilerButtons[buttonCounter].classList.toggle("active");
-      for (let userRowCounter = 0; userRowCounter < userRows.length; userRowCounter++) {
-        userRows[userRowCounter].classList.toggle("hide");
-      }
-    });
-  }
-  let addBtn = appElement.querySelector(".calendar-table__add-vacation-button");
-  let cancelBtn = appElement.querySelector(".modal__btn-cancel");
-  let sendBtn = appElement.querySelector(".modal__btn-send");
-  let modal = appElement.querySelector(".modal");
-  let modalOoverlay = appElement.querySelector(".modal__overlay");
-
-  addBtn.addEventListener("click", function (e) {
+  addButton.addEventListener("click", () => {
     modal.classList.toggle("visible");
     modalOoverlay.classList.toggle("visible");
   });
 
-  cancelBtn.addEventListener("click", function (e) {
+  cancelButton.addEventListener("click", () => {
     modal.classList.toggle("visible");
     modalOoverlay.classList.toggle("visible");
   });
 
-  sendBtn.addEventListener("click", function (e) {
+  sendButton.addEventListener("click", () => {
     modal.classList.toggle("visible");
     modalOoverlay.classList.toggle("visible");
   });
